@@ -4,17 +4,11 @@ sudo docker-compose up -d
 
 sudo docker-compose run composer install
 
-sudo chown -R $(whoami) ./src
+sudo chown -R 777 ./src
 
 echo "chown GOAL"
 
-sudo chmod -R gu+w ./src/storage
-
-sudo chmod -R guo+w ./src/storage
-
-echo "chmod GOAL"
-
-sudo cat ./src/.env.example > ./src/.env
+sudo make copy-env
 
 echo ".env GOAL"
 

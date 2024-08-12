@@ -4,6 +4,9 @@ npm:
 php-artisan:
 	sudo docker-compose run artisan ${o}
 
+copy-env:
+	sudo docker-compose run php php -r "file_exists('.env') || copy('.env.example', '.env');"
+
 composer:
 	sudo docker-compose run composer ${o}
 
