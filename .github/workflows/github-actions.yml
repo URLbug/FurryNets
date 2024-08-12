@@ -4,9 +4,6 @@ on:
   push:
     branch:
       - main
-  pull:
-    branch:
-      - main
   merge:
     branch:
       - main
