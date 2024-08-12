@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Full build app
+        uses: actions/checkout@v2.3.2
       - run: make full-build
       
       - name: Copy .env
