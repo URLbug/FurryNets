@@ -70,6 +70,8 @@ services:
     build:
       context: dockerfiles
       dockerfile: npm.Dockerfile
+    ports:
+      - 3009:3009
     volumes:
       - ./src:/var/www/laravel
     

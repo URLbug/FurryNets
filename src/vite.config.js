@@ -7,5 +7,17 @@ export default defineConfig({
             input: ['resources/css/app.css', 'resources/js/app.js'],
             refresh: true,
         }),
+        
     ],
+
+    server: {
+        host: '0.0.0.0',
+        hmr: {
+            host: '192.168.176.3'
+        },
+        watch: {
+		    // https://vitejs.dev/config/server-options.html#server-watch
+            usePolling: true
+        }
+    },
 });
