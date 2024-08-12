@@ -14,10 +14,4 @@ jobs:
       
       - name: Copy .env
         run: make copy-env
-      
-      - name: 📂 Sync files
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ${{ secrets.YOURSITE_FTP_SERVER}}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.YOUR_PASSWORD }}
+        
