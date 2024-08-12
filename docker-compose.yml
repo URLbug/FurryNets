@@ -77,6 +77,20 @@ services:
 
     networks:
       - adls-laravel
+  
+  s3mock:
+    image: adobe/s3mock
+    restart: unless-stopped
+    tty: true
+    environment:
+      - initialBuckets=laravel
+    ports:
+      - "9090:9090"
+    volumes:
+      - adls-s3:/data
+
+    networks:
+      - adls-laravel
 
 networks:
   adls-laravel:
@@ -84,4 +98,6 @@ networks:
 
 volumes:
   adls-mysql:
+    driver: local
+  adls-s3:
     driver: local
