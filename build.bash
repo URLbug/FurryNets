@@ -22,4 +22,4 @@ sudo docker-compose run artisan key:generate
 echo ""
 echo ""
 echo ""
-echo "local host: http://localhost:8000/"
+echo "local host: http://localhost:8880/"
