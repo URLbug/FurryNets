@@ -1,0 +1,87 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mariadb
+    ports:
+      - "3310:3306"
+    restart: unless-stopped
+    tty: true
+    environment: 
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: laravel
+    volumes:
+      - adls-mysql:/var/lib/mysql
+    
+    networks:
+      - adls-laravel
+
+  nginx:
+    image: nginx:stable-alpine
+    restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./src:/var/www/laravel
+    depends_on:
+      - mysql
+      - php
+    
+    networks:
+      - adls-laravel
+  
+  php:
+    build: 
+      context: dockerfiles
+      dockerfile: php.Dockerfile
+    volumes:
+      - ./src:/var/www/laravel
+    
+    networks:
+      - adls-laravel
+  
+  composer:
+    build:
+      context: dockerfiles
+      dockerfile: composer.Dockerfile
+    volumes:
+      - ./src:/var/www/laravel
+    
+    entrypoint: ["composer"]
+
+    networks:
+      - adls-laravel
+
+  artisan:
+    build:
+      context: dockerfiles
+      dockerfile: php.Dockerfile
+    volumes:
+      - ./src:/var/www/laravel
+    
+    entrypoint: ["php", "/var/www/laravel/artisan"]
+
+    networks:
+      - adls-laravel
+  
+  npm:
+    build:
+      context: dockerfiles
+      dockerfile: npm.Dockerfile
+    volumes:
+      - ./src:/var/www/laravel
+    
+    entrypoint: ["npm"]
+
+    networks:
+      - adls-laravel
+
+networks:
+  adls-laravel:
+    driver: bridge
+
+volumes:
+  adls-mysql:
+    driver: local
