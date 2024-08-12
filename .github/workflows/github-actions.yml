@@ -6,7 +6,6 @@ on:
       - main
 jobs:
   web-deploy:
-    name: FurryNets deploy
     runs-on: ubuntu-latest
     steps:
       - name: Full build app
@@ -14,4 +13,4 @@ jobs:
       
       - name: Copy .env
         run: make copy-env
-        
+
