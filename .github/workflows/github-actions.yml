@@ -4,10 +4,6 @@ on:
   push:
     branch:
       - main
-  merge:
-    branch:
-      - main
-
 jobs:
   web-deploy:
     runs-on: ubuntu-latest
