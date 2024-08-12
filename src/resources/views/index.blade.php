@@ -14,8 +14,8 @@
         <div class="content">
             <h1 class="text-white"><i class="fa-brands fa-wolf-pack-battalion"></i> Welcom to FurryNet!</h1>
             <h4 class="text-white">Here you can all this</h4>
-            <a href="#" class="btn login-a"><i class="fa-solid fa-plus"></i> Join us</a>
-            <a href="#" class="btn login-a"><i class="fa-solid fa-right-to-bracket"></i> Log in</a>
+            <a href="{{ route('login') }}" class="btn login-a"><i class="fa-solid fa-plus"></i> Join us</a>
+            <a href="{{ route('regs') }}" class="btn login-a"><i class="fa-solid fa-right-to-bracket"></i> Log in</a>
         </div>
     </div>
     <!-- page title end -->
