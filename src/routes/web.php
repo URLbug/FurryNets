@@ -15,4 +15,11 @@ Route::namespace('App/Http/Controllers')
     Route::get('/regs', function(){
         return view('auth.regs');
     })->name('regs');
+
+    Route::middleware('auth')
+    ->group(function() {
+        Route::get('/profile', function() {
+            return view('profile');
+        })->name('profile');
+    });
 });

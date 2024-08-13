@@ -20,17 +20,10 @@ return new class extends Migration
             $table->json('tags');
             
             
-            $table->unsignedBigInteger('users_id');
-            $table->foreign('users_id')
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
             ->references('id')
             ->on('users')
-            ->cascadeOnDelete()
-            ->cascadeOnUpdate();
-
-            $table->unsignedBigInteger('comments_id');
-            $table->foreign('comments_id')
-            ->references('id')
-            ->on('comments')
             ->cascadeOnDelete()
             ->cascadeOnUpdate();
 
