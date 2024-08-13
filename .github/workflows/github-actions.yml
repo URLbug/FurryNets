@@ -16,3 +16,6 @@ jobs:
 
       - name: Full build app
         run: make full-build
+      
+      - name: Testing app
+        run: make test

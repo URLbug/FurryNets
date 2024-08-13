@@ -7,6 +7,9 @@ php-artisan:
 copy-env:
 	sudo docker-compose run php php -r "file_exists('.env') || copy('.env.example', '.env');"
 
+test:
+	sudo docker-compose run artisan test
+
 composer:
 	sudo docker-compose run composer ${o}
 
