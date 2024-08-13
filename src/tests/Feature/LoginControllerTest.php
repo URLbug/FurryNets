@@ -9,6 +9,13 @@ use Tests\TestCase;
 class LoginControllerTest extends TestCase
 {
 
+    public function test_base(): void
+    {
+        $response = $this->get('/login');
+
+        $response->assertStatus(200);
+    }
+
     public function test_auth(): void
     {
         $response = $this->post('/login', [
@@ -17,6 +24,13 @@ class LoginControllerTest extends TestCase
         ]);
 
         $response->assertRedirectToRoute('profile');
+    }
+
+    public function test_logout(): void
+    {
+        $response = $this->get('/logout');
+
+        $response->assertRedirectToRoute('login');
     }
 
     public function test_not_auth(): void

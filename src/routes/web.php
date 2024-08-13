@@ -14,14 +14,19 @@ Route::namespace('App\Http\Controllers')
         'Auth\LoginController@index'
     )->name('login');
 
-    Route::get('/regs', function(){
-        return view('auth.regs');
-    })->name('regs');
+    Route::match(
+        ['get', 'post',],
+        '/regs',
+        'Auth\RegsController@index',
+    )->name('regs');
 
     Route::middleware('auth')
     ->group(function() {
         Route::get('/profile', function() {
             return view('profile');
         })->name('profile');
+
+        Route::get('/logout', 'Auth\LoginController@logout')
+        ->name('logout');
     });
 });

@@ -24,7 +24,7 @@ class LoginController extends Controller
     {
         $data = $request->validate([
             'email' => 'required|email',
-            'password' => 'required|min:6|string',
+            'password' => 'required|string',
             'remember_me' => 'string',
         ]);
 
@@ -36,9 +36,16 @@ class LoginController extends Controller
         if(!$isAuth)
         {
             return back()
-            ->withErrors('Не удалось авторизироваться');
+            ->withErrors('Not auth');
         }
 
         return redirect()->route('profile');
+    }
+
+    function logout(): RedirectResponse
+    {
+        Auth::logout();
+
+        return redirect()->route('login');
     }
 }
