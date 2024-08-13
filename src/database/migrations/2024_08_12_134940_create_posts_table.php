@@ -13,6 +13,27 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
+            
+            $table->unsignedBigInteger('like');
+            $table->string('description');
+            $table->string('file');
+            $table->json('tags');
+            
+            
+            $table->unsignedBigInteger('users_id');
+            $table->foreign('users_id')
+            ->references('id')
+            ->on('users')
+            ->cascadeOnDelete()
+            ->cascadeOnUpdate();
+
+            $table->unsignedBigInteger('comments_id');
+            $table->foreign('comments_id')
+            ->references('id')
+            ->on('comments')
+            ->cascadeOnDelete()
+            ->cascadeOnUpdate();
+
             $table->timestamps();
         });
     }

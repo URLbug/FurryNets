@@ -22,7 +22,7 @@
         <div class="main-menu" id="navbar">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
-                <a class="navbar-brand" href="#"><i class="fa-brands fa-wolf-pack-battalion"></i> FurryNet</a>
+                <a class="navbar-brand" href="{{ route('home') }}"><i class="fa-brands fa-wolf-pack-battalion"></i> FurryNet</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -31,6 +31,8 @@
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="{{ route('home') }}">Home</a>
                             </li>
+                            
+                            {{-- For auto users want display images and other categories --}}
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Arts</a>
                             </li>
@@ -40,6 +42,8 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Photos</a>
                             </li>
+                            {{-- end comments --}}
+
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">Log In</a>
                             </li>
@@ -47,10 +51,13 @@
                                 <a class="nav-link" href="{{ route('regs') }}">Register</a>
                             </li>
                         </ul>
+                        
+                        {{-- The `search` should also be displayed for auth. users --}}
                         <form class="d-flex">
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                             <button class="btn btn-outline-success" type="submit">Search</button>
                         </form>
+                        {{-- end comments --}}
                     </div>
                 </div>
             </nav>
