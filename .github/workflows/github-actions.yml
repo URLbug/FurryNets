@@ -18,4 +18,5 @@ jobs:
         run: make full-build
       
       - name: Testing app
+        run: make start
         run: make test
