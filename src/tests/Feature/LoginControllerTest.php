@@ -8,13 +8,86 @@ use Tests\TestCase;
 
 class LoginControllerTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     */
-    public function test_example(): void
-    {
-        $response = $this->get('/');
 
-        $response->assertStatus(200);
+    public function test_auth(): void
+    {
+        $response = $this->post('/login', [
+            'email' => 'admin@admin.com',
+            'password' => 'password',
+        ]);
+
+        $response->assertRedirectToRoute('profile');
+    }
+
+    public function test_not_auth(): void
+    {
+        $response = $this->post('/login', [
+            'email' => '123@123.com',
+            'password' => '123',
+        ]);
+
+        $response->assertRedirectToRoute('home');
+    }
+
+    public function test_not_password(): void
+    {
+        $response = $this->post('/login', [
+            'email' => 'admin@admin.com',
+            'password' => '',
+        ]);
+
+        $response->assertStatus(302);
+    }
+
+    public function test_not_email(): void
+    {
+        $response = $this->post('/login', [
+            'email' => '',
+            'password' => 'password',
+        ]);
+
+        $response->assertStatus(302);
+    }
+
+    public function test_wrong_password(): void
+    {
+        $response = $this->post('/login', [
+            'email' => 'admin@admin.com',
+            'password' => 'password123',
+        ]);
+
+        $response->assertStatus(302);
+    }
+
+    public function test_wrong_email(): void
+    {
+        $response = $this->post('/login', [
+            'email' => 'admin@123.com',
+            'password' => 'password',
+        ]);
+
+        $response->assertStatus(302);
+    }
+
+    public function test_remember_me(): void
+    {
+        $response = $this->post('/login', [
+            'email' => 'admin@admin.com',
+            'password' => 'password',
+            'remember_me' => 'on',
+        ]);
+
+        $response->assertRedirectToRoute('profile');
+    }
+
+    public function test_other_remember_me(): void
+    {
+        $response = $this->post('/login', [
+            'email' => 'admin@admin.com',
+            'password' => 'password',
+            'remember_me' => 'admin',
+        ]);
+
+        $response->assertRedirectToRoute('profile');
     }
 }

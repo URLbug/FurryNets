@@ -21,5 +21,8 @@ jobs:
       - name: Full build app
         run: make full-build
       
+      - name: Make seed
+        run: make php-artisan o="db:seed"
+      
       - name: Testing app
         run: make start && make test
