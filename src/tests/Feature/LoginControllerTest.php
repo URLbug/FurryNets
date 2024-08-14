@@ -23,7 +23,9 @@ class LoginControllerTest extends TestCase
             'password' => 'password',
         ]);
 
-        $response->assertRedirectToRoute('profile');
+        $response->assertRedirectToRoute('profile', [
+            'username' => 'admin',
+        ]);
     }
 
     public function test_logout(): void
@@ -91,7 +93,9 @@ class LoginControllerTest extends TestCase
             'remember_me' => 'on',
         ]);
 
-        $response->assertRedirectToRoute('profile');
+        $response->assertRedirectToRoute('profile', [
+            'username' => 'admin'
+        ]);
     }
 
     public function test_other_remember_me(): void
@@ -102,6 +106,8 @@ class LoginControllerTest extends TestCase
             'remember_me' => 'admin',
         ]);
 
-        $response->assertRedirectToRoute('profile');
+        $response->assertRedirectToRoute('profile', [
+            'username' => 'admin',
+        ]);
     }
 }

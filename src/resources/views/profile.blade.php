@@ -20,7 +20,7 @@
                             <p class="text-muted font-size-sm">Following: {{ count($following->toArray()) }}</p>
 
                             @if(Auth::user()->username === $username)
-                                <a class="btn btn-outline-primary href="{{ route('logout') }}">Logout</a>
+                                <a class="btn btn-outline-primary" href="{{ route('logout') }}">Logout</a>
                             @else
                                 <form action="" method="post">
                                     @csrf
