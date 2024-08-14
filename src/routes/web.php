@@ -5,7 +5,11 @@ use Illuminate\Support\Facades\Route;
 Route::namespace('App\Http\Controllers')
 ->group(function() {
     Route::get('/', function(){
-        return view('index');
+        return !auth()->check() 
+        ? view('index') 
+        : redirect()->route('profile', [
+            'username' => auth()->user()->username,
+        ]);
     })->name('home');
 
     Route::match(
@@ -22,9 +26,8 @@ Route::namespace('App\Http\Controllers')
 
     Route::middleware('auth')
     ->group(function() {
-        Route::get('/profile', function() {
-            return view('profile');
-        })->name('profile');
+        Route::get('/profile/{username}', 'Profile\ProfileController@index')
+        ->name('profile');
 
         Route::get('/logout', 'Auth\LoginController@logout')
         ->name('logout');

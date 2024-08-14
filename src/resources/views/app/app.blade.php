@@ -33,30 +33,36 @@
                             </li>
                             
                             {{-- For auto users want display images and other categories --}}
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Arts</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Writing</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Photos</a>
-                            </li>
+                            
+                            @if(Auth::check())
+                              <li class="nav-item">
+                                  <a class="nav-link" href="#">Arts</a>
+                              </li>
+                              <li class="nav-item">
+                                  <a class="nav-link" href="#">Writing</a>
+                              </li>
+                              <li class="nav-item">
+                                  <a class="nav-link" href="#">Photos</a>
+                              </li>
+                            @else
                             {{-- end comments --}}
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">Log In</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('regs') }}">Register</a>
-                            </li>
+                              <li class="nav-item">
+                                  <a class="nav-link" href="{{ route('login') }}">Log In</a>
+                              </li>
+                              <li class="nav-item">
+                                  <a class="nav-link" href="{{ route('regs') }}">Register</a>
+                              </li>
+                            @endif
                         </ul>
                         
                         {{-- The `search` should also be displayed for auth. users --}}
-                        <form class="d-flex">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success" type="submit">Search</button>
-                        </form>
+                        @if(Auth::check())
+                          <form class="d-flex">
+                              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                              <button class="btn btn-outline-success" type="submit">Search</button>
+                          </form>
+                        @endif
                         {{-- end comments --}}
                     </div>
                 </div>

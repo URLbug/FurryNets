@@ -39,7 +39,9 @@ class LoginController extends Controller
             ->withErrors('Not auth');
         }
 
-        return redirect()->route('profile');
+        return redirect()->route('profile', [
+            'username' => auth()->user()->username,
+        ]);
     }
 
     function logout(): RedirectResponse
