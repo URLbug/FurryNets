@@ -30,22 +30,22 @@
             <div class="col-md-3">
                 <h4><i class="fa-solid fa-palette"></i> Arts</h4>
                 <p>Here you can share your artworks and see other peoples artworks</p>
-                <a href="#" class="group-idk">Start artworks</a>
+                <a href="{{ route('login') }}" class="group-idk">Start artworks</a>
             </div>
             <div class="col-md-3">
                 <h4><i class="fa-solid fa-camera"></i> Photos</h4>
                 <p>Here you can share your photos and see other peoples photos</p>
-                <a href="#" class="group-idk">Start photos</a>
+                <a href="{{ route('login') }}" class="group-idk">Start photos</a>
             </div>
             <div class="col-md-3">
                 <h4><i class="fa-solid fa-feather-pointed"></i> Writing</h4>
                 <p>Here you can share your writings and see other peoples writings</p>
-                <a href="#" class="group-idk">Start writing</a>
+                <a href="{{ route('login') }}" class="group-idk">Start writing</a>
             </div>
             <div class="col-md-3">
                 <h4><i class="fa-solid fa-user-group"></i> Friends</h4>
                 <p>Here you can make new friends and talk to them</p>
-                <a href="#" class="group-idk">Start talking</a>
+                <a href="{{ route('login') }}" class="group-idk">Start talking</a>
             </div>
         </div>
     </div>

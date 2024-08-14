@@ -84,38 +84,79 @@
                             </div>
                             </div>
                             <hr>
-                            <div class="row">
-                            <div class="col-sm-12">
-                                <a class="btn btn-info " target="__blank" href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit</a>
-                            </div>
-                            </div>
+                            
                         @else
                             Not socialnetworks.
                         @endif
-                        </div>
-                    </div>
-                    <!-- Posts -->
-                    @foreach($posts as $post)
-                        <div class="row">
-                            <div class="card" style="width: 18rem;">
-                                @if(isset($post->file))
-                                    <img class="card-img-top" src="{{ $post->file }}" alt="Card image cap">
-                                @endif
-
-                                <div class="card-body">
-                                <a href="#" class="btn btn-primary">{{ $post->name }}</a>
-                                <p class="card-text">
-                                    {{ $post->description }}
-                                </p>
-                                <form>
-                                    <button class="btn btn-primary"><i class="fa-solid fa-heart"></i>{{ $post->like }} Like</button>
-                                    <button class="btn btn-secondary"><i class="fa-solid fa-comment"></i>{{ count($post->comment()->get()->toArray()) }} Comment</button>
-                                    <button class="btn btn-success"><i class="fa-solid fa-share"></i> Share</button>
-                                </form>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit">Edit</button>
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                    </div>
+                    <!-- Posts -->
+                        <div class="text-center d-flex align-items-center flex-column">
+                            @foreach($posts as $post)
+                                <div class="row">
+                                    <div class="card" style="width: 18rem;">
+                                    
+                                    @if(isset($post->file))
+                                        <img class="card-img-top" src="{{ $post->file }}" alt="Card image cap">
+                                    @endif
+
+                                    <div class="card-body">
+                                        <a href="detal-page.html" class="btn btn-primary">{{ $post->name }}</a>
+                                        <p class="card-text">{{ $post->description }}</p>
+                                        <form>
+                                            <button class="btn btn-primary"><i class="fa-solid fa-heart"></i>{{ $post->like }} Like</button>
+                                            <button class="btn btn-secondary"><i class="fa-solid fa-comment"></i>{{ count($post->comment->toArray()) }} Comment</button>
+                                        </form>
+
+                                        <input type="hidden" id="in01" value="{{ route('home') }}" readonly>
+                                        <button class="btn btn-success" id="btn01" data-clipboard-target="#in01"><i class="fa-solid fa-share"></i> Share</button>
+
+                                    </div>
+                                    </div>
+                                </div>
+                                <br>
+                            @endforeach
+
+                            <div class="modal fade" id="edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLabel">Edit profile</h5>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <div class="text-center">
+                                        <div class="row">
+                                          <p>About Me:</p>
+                                          <textarea name="description" id=""></textarea>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                          <p>Socialnetworks:</p>
+                                          <p>Patreon: <input type="text" name="patreon" id=""></p>
+                                          <p>GitHub: <input type="text" name="github" id=""></p>
+                                          <p>Discord: <input type="text" name="discord" id=""></p>
+                                          <p>Twitter: <input type="text" name="twitter" id=""></p>
+                                          <p>TikTok: <input type="text" name="tiktok" id=""></p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              
+                                      <form action="" method="post">
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                      </form>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                        </div>
                     
                     
                     </div>
