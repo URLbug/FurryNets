@@ -11,14 +11,14 @@ use Illuminate\Http\RedirectResponse;
 
 class ProfileController extends Controller
 {
-    function index(string $username): View|RedirectResponse
+    function index(string $username): View
     {
         $user = User::query()
         ->where('username', $username);
 
         if(!$user->exists())
         {
-            return back();
+            abort(404);
         }
 
         $user = $user->first();
