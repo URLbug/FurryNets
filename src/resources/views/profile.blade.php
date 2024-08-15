@@ -132,40 +132,12 @@
                                         <div class="row">
                                             <p>Socialnetworks:</p>
                                             
-                                            @if(!isset($user->socialnetworks))
-                                            
-                                                <p>Patreon: <input type="text" name="patreon" id=""></p>
-                                                <p>GitHub: <input type="text" name="github" id=""></p>
-                                                <p>Discord: <input type="text" name="discord" id=""></p>
-                                                <p>Twitter: <input type="text" name="twitter" id=""></p>
-                                                <p>TikTok: <input type="text" name="tiktok" id=""></p>
-                                            @else
-                                                @foreach($user->socialnetworks as $key => $val)
-                                                    @switch($key)
-                                                        @case('patreon')                                                            
-                                                            <p>Patreon: <input type="text" name="patreon" value="{{ $val }}" id=""></p>
-                                                            
-                                                            @break
-                                                        @case('github')                                                            
-                                                            <p>GitHub: <input type="text" name="github" value="{{ $val }}"  id=""></p>
-                                                            
-                                                            @break
-                                                        @case('discord')
-                                                            <p>Discord: <input type="text" name="discord" value="{{ $val }}"  id=""></p>
-                                                            
-                                                            @break
-                                                        @case('twitter')
-                                                            <p>Twitter: <input type="text" name="twitter" value="{{ $val }}"  id=""></p>
-                                                            
-                                                            @break
-                                                        @case('tiktok')
-                                                            <p>TikTok: <input type="text" name="tiktok" value="{{ $val }}" id=""></p>
+                                            <p>Patreon: <input type="text" value="{{ isset($user->socialnetworks['patreon']) ? $user->socialnetworks['patreon'] : null }}" name="patreon" id=""></p>
+                                            <p>GitHub: <input type="text" value="{{ isset($user->socialnetworks['github']) ? $user->socialnetworks['github'] : null }}"  name="github" id=""></p>
+                                            <p>Discord: <input type="text" value="{{ isset($user->socialnetworks['discord']) ? $user->socialnetworks['discord'] : null }}" name="discord" id=""></p>
+                                            <p>Twitter: <input type="text" value="{{ isset($user->socialnetworks['twitter']) ? $user->socialnetworks['twitter'] : null }}" name="twitter" id=""></p>
+                                            <p>TikTok: <input type="text" value="{{ isset($user->socialnetworks['tiktok']) ? $user->socialnetworks['tiktok'] : null }}" name="tiktok" id=""></p>
 
-                                                            @break
-                                                            
-                                                    @endswitch
-                                                @endforeach
-                                            @endif
                                             </div>
                                         </div>
                                     </div>
