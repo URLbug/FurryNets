@@ -82,9 +82,12 @@ class ProfileController extends Controller
             $user->picture = S3Storage::getFile($picture->hashName());
         }
 
-        $user->description = $data['description'];
+        if(isset($data['description']))
+        {
+            $user->description = $data['description'];
 
-        unset($data['description']);
+            unset($data['description']);
+        }
 
         $user->socialnetworks = $data;
 
