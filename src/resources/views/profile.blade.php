@@ -59,31 +59,37 @@
                         </div>
                         @if(isset($user->socialnetworks))
                             <div class="row">
-                            <div class="col-sm-3">
-                                <a href="#" class="btn group-idk"><i class="fa-brands fa-patreon"></i> Patreon</a>
+                                <div class="col-sm-3">
+                                    @foreach ($user->socialnetworks as $key => $val)
+                                        @if(isset($val))
+                                            @switch($key)
+                                                @case('patreon')
+                                                    <a href="{{ $val }}" class="btn group-idk"><i class="fa-brands fa-patreon"></i> Patreon</a>
+                                                    
+                                                    @break
+                                                @case('github')
+                                                    <a href="{{ $val }}" class="btn group-idk"><i class="fa-brands fa-github"></i> Github</a>
+                                                    
+                                                    @break
+                                                @case('discord')
+                                                    <a href="{{ $val }}" class="btn group-idk"><i class="fa-brands fa-discord"></i> Discord</a>
+                                                    
+                                                    @break
+                                                @case('twitter')
+                                                    <a href="{{ $val }}" class="btn group-idk"><i class="fa-brands fa-twitter"></i> Twitter</a>
+                                                    
+                                                    @break
+                                                @case('tiktok')
+                                                    <a href="{{ $val }}" class="btn group-idk"><i class="fa-brands fa-tiktok"></i> TikTok</a>
+
+                                                    
+                                                    @break
+                                                    
+                                            @endswitch
+                                        @endif                                  
+                                    @endforeach
+                                </div>
                             </div>
-                            </div>
-                            <div class="row">
-                            <div class="col-sm-3">
-                                <a href="#" class="btn group-idk"><i class="fa-brands fa-github"></i> Github</a>
-                            </div>
-                            </div>
-                            <div class="row">
-                            <div class="col-sm-3">
-                                <a href="#" class="btn group-idk"><i class="fa-brands fa-discord"></i> Discord</a>
-                            </div>
-                            </div>
-                            <div class="row">
-                            <div class="col-sm-3">
-                                <a href="#" class="btn group-idk"><i class="fa-brands fa-twitter"></i> Twitter</a>
-                            </div>
-                            </div>
-                            <div class="row">
-                            <div class="col-sm-3">
-                                <a href="#" class="btn group-idk"><i class="fa-brands fa-tiktok"></i> TikTok</a>
-                            </div>
-                            </div>
-                            
                         @else
                             Not socialnetworks.
                         @endif
@@ -107,26 +113,66 @@
                                 </div>
                                 <div class="modal-body">
                                     <div class="text-center">
-                                    <div class="row">
-                                        <p>About Me:</p>
-                                        <textarea name="description" id=""></textarea>
+                                    <form action="{{ route('profile', ['username' => $username]) }}" method="post">
+                                        @csrf
+                                        @method('PATCH')
+
+                                        <div class="row">
+                                            <p>Picture</p>
+                                            <input type="file" accept="image/*" name="picture">
+                                        </div>
+
+                                        <div class="row">
+                                            <p>About Me:</p>
+                                            <textarea name="description" id="">
+                                                {{ $user->description }}
+                                            </textarea>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <p>Socialnetworks:</p>
+                                            
+                                            @if(!isset($user->socialnetworks))
+                                            
+                                                <p>Patreon: <input type="text" name="patreon" id=""></p>
+                                                <p>GitHub: <input type="text" name="github" id=""></p>
+                                                <p>Discord: <input type="text" name="discord" id=""></p>
+                                                <p>Twitter: <input type="text" name="twitter" id=""></p>
+                                                <p>TikTok: <input type="text" name="tiktok" id=""></p>
+                                            @else
+                                                @foreach($user->socialnetworks as $key => $val)
+                                                    @switch($key)
+                                                        @case('patreon')                                                            
+                                                            <p>Patreon: <input type="text" name="patreon" value="{{ $val }}" id=""></p>
+                                                            
+                                                            @break
+                                                        @case('github')                                                            
+                                                            <p>GitHub: <input type="text" name="github" value="{{ $val }}"  id=""></p>
+                                                            
+                                                            @break
+                                                        @case('discord')
+                                                            <p>Discord: <input type="text" name="discord" value="{{ $val }}"  id=""></p>
+                                                            
+                                                            @break
+                                                        @case('twitter')
+                                                            <p>Twitter: <input type="text" name="twitter" value="{{ $val }}"  id=""></p>
+                                                            
+                                                            @break
+                                                        @case('tiktok')
+                                                            <p>TikTok: <input type="text" name="tiktok" value="{{ $val }}" id=""></p>
+
+                                                            @break
+                                                            
+                                                    @endswitch
+                                                @endforeach
+                                            @endif
+                                            </div>
+                                        </div>
                                     </div>
-                                    <hr>
-                                    <div class="row">
-                                        <p>Socialnetworks:</p>
-                                        <p>Patreon: <input type="text" name="patreon" id=""></p>
-                                        <p>GitHub: <input type="text" name="github" id=""></p>
-                                        <p>Discord: <input type="text" name="discord" id=""></p>
-                                        <p>Twitter: <input type="text" name="twitter" id=""></p>
-                                        <p>TikTok: <input type="text" name="tiktok" id=""></p>
-                                    </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             
-                                    <form action="" method="post">
-                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
                                     </form>
                                 </div>
                                 </div>

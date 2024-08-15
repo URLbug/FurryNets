@@ -11,8 +11,15 @@ use Illuminate\Http\RedirectResponse;
 
 class ProfileController extends Controller
 {
-    function index(string $username): View
+    function index(string $username, Request $request): View|RedirectResponse
     {
+        if(
+            $request->isMethod('PATCH') &&
+            $username === auth()->user()->username
+        ) {
+            return $this->update($request);
+        }
+
         $user = User::query()
         ->where('username', $username);
 
@@ -34,5 +41,31 @@ class ProfileController extends Controller
             'followers' => $user->follower()->get(),
             'following' => $following,
         ]);
+    }
+
+    function update(Request $request): RedirectResponse
+    {
+        $data = $request->validate([
+            'description' => 'string|max:255|nullable',
+            'patreon' => 'string|url|nullable',
+            'github' => 'string|url|nullable',
+            'discord' => 'string|url|nullable',
+            'twitter' => 'string|url|nullable',
+            'tiktok' => 'string|url|nullable',
+        ]);
+
+        $user = User::query()
+        ->where('username', auth()->user()->username)
+        ->first();
+
+        $user->description = $data['description'];
+
+        unset($data['description']);
+
+        $user->socialnetworks = $data;
+
+        $user->save();
+
+        return back();
     }
 }

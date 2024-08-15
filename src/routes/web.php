@@ -26,8 +26,11 @@ Route::namespace('App\Http\Controllers')
 
     Route::middleware('auth')
     ->group(function() {
-        Route::get('/profile/{username}', 'Profile\ProfileController@index')
-        ->name('profile');
+        Route::match(
+            ['get', 'patch'],
+            '/profile/{username}', 
+            'Profile\ProfileController@index'
+        )->name('profile');
 
         Route::get('/posts', function() {
             return view('posts.posts');
