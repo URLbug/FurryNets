@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Owners\S3Storage;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
@@ -47,10 +48,8 @@ class ProfileController extends Controller
 
     function update(Request $request): RedirectResponse
     {
-        dd($request->all()['picture']);
-
         $data = $request->validate([
-            'picture' => 'mimes:jpeg,jpg,png,gif|max:10000|nullable',
+            'picture' => 'image|max:1004|nullable',
             'description' => 'string|max:255|nullable',
             'patreon' => 'string|url|nullable',
             'github' => 'string|url|nullable',
@@ -59,10 +58,29 @@ class ProfileController extends Controller
             'tiktok' => 'string|url|nullable',
         ]);
 
-
         $user = User::query()
         ->where('username', auth()->user()->username)
         ->first();
+
+        $picture = $data['picture'];
+
+        if(isset($picture))
+        {
+            if(isset($user->picture))
+            {
+                if(!S3Storage::deleteFile($user->picture))
+                {
+                    abort(500);
+                }
+            }
+
+            if(!S3Storage::putFile('/', $picture))
+            {
+                abort(500);
+            }
+
+            $user->picture = S3Storage::getFile($picture->hashName());
+        }
 
         $user->description = $data['description'];
 
@@ -71,8 +89,6 @@ class ProfileController extends Controller
         $user->socialnetworks = $data;
 
         $user->save();
-
-        // S3Storage::putFile();
 
         return back();
     }

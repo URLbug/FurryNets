@@ -6,8 +6,22 @@ use Illuminate\Support\Facades\Storage;
 
 final class S3Storage
 {
-    static function putFile(string $path, mixed $content): void
+    static function putFile(string $path, mixed $content): bool
     {
-        Storage::disk('s3')->put($path, $content);
+        return Storage::disk('s3')->put($path, $content);
+    }
+
+    static function getFile(string $name): string
+    {
+        return str_replace(
+            's3mock:9090', 
+            'localhost:9091', 
+            Storage::cloud()->url($name)
+        );
+    }
+
+    static function deleteFile(string $name): bool
+    {
+        return Storage::disk('s3')->delete($name);
     }
 } 

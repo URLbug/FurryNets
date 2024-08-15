@@ -12,7 +12,7 @@
                         @if(!isset($user->picture))
                             <img src="{{ asset('/img/none-avatar.png') }}" class="rounded-circle" width="150">
                         @else
-                            <img src="$user->picture" alt="" class="rounded-circle" width="150">
+                            <img src="{{ $user->picture }}" alt="" class="rounded-circle" width="150">
                         @endif
                         <div class="mt-3">
                             <h4>{{ $username }}</h4>
@@ -113,7 +113,7 @@
                                 </div>
                                 <div class="modal-body">
                                     <div class="text-center">
-                                    <form action="{{ route('profile', ['username' => $username]) }}" method="post">
+                                    <form action="{{ route('profile', ['username' => $username]) }}" method="post" enctype="multipart/form-data">
                                         @csrf
                                         @method('PATCH')
 
