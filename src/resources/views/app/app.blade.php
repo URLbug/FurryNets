@@ -36,13 +36,8 @@
                             
                             @if(Auth::check())
                               <li class="nav-item">
-                                  <a class="nav-link" href="#">Arts</a>
+                                  <a class="nav-link" href="#">Posts</a>
                               </li>
-                              <li class="nav-item">
-                                  <a class="nav-link" href="#">Writing</a>
-                              </li>
-                              <li class="nav-item">
-                                  <a class="nav-link" href="#">Photos</a>
                               </li>
                             @else
                             {{-- end comments --}}
