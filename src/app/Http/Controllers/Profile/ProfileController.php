@@ -62,10 +62,10 @@ class ProfileController extends Controller
         ->where('username', auth()->user()->username)
         ->first();
 
-        $picture = $data['picture'];
-
-        if(isset($picture))
+        if(isset($data['picture']))
         {
+            $picture = $data['picture'];
+
             if(isset($user->picture))
             {
                 if(!S3Storage::deleteFile($user->picture))
