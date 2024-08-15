@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Follower;
 use App\Models\User;
+use App\Owners\S3Storage;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -45,7 +47,10 @@ class ProfileController extends Controller
 
     function update(Request $request): RedirectResponse
     {
+        dd($request->all()['picture']);
+
         $data = $request->validate([
+            'picture' => 'mimes:jpeg,jpg,png,gif|max:10000|nullable',
             'description' => 'string|max:255|nullable',
             'patreon' => 'string|url|nullable',
             'github' => 'string|url|nullable',
@@ -53,6 +58,7 @@ class ProfileController extends Controller
             'twitter' => 'string|url|nullable',
             'tiktok' => 'string|url|nullable',
         ]);
+
 
         $user = User::query()
         ->where('username', auth()->user()->username)
@@ -65,6 +71,8 @@ class ProfileController extends Controller
         $user->socialnetworks = $data;
 
         $user->save();
+
+        // S3Storage::putFile();
 
         return back();
     }

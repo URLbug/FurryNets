@@ -87,7 +87,7 @@ services:
     environment:
       - initialBuckets=laravel
     ports:
-      - "9191:9191"
+      - "9091:9090"
     volumes:
       - adls-s3:/data
 
