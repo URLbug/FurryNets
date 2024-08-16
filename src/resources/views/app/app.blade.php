@@ -36,7 +36,7 @@
                             
                             @if(Auth::check())
                               <li class="nav-item">
-                                  <a class="nav-link" href="#">Posts</a>
+                                  <a class="nav-link" href="{{ route('posts') }}">Posts</a>
                               </li>
                               </li>
                             @else
