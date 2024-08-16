@@ -27,7 +27,7 @@ Route::namespace('App\Http\Controllers')
     Route::middleware('auth')
     ->group(function() {
         Route::match(
-            ['get', 'patch'],
+            ['get', 'patch', 'post'],
             '/profile/{username}', 
             'Profile\ProfileController@index'
         )->name('profile');

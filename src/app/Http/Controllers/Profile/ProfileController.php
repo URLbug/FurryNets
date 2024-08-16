@@ -9,8 +9,6 @@ use App\Models\User;
 use App\Owners\S3Storage;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -23,6 +21,11 @@ class ProfileController extends Controller
             return $this->update($request);
         }
 
+        if($request->isMethod('POST'))
+        {
+            return $this->store($username);
+        }
+
         $user = User::query()
         ->where('username', $username);
 
@@ -33,17 +36,72 @@ class ProfileController extends Controller
 
         $user = $user->first();
 
-        $following = Follower::query()
-        ->where('user_id', $user->id)
-        ->get();
-
         return view('profile', [
             'username' => $username,
             'user' => $user,
             'posts' => $user->post()->get(),
-            'followers' => $user->follower()->get(),
-            'following' => $following,
+            'followers' => Follower::query()
+            ->where('following_id', $user->id)
+            ->get(['follower_id']),
+
+            'following' => Follower::query()
+            ->where('follower_id', $user->id)
+            ->get(['following_id']),
+            
+            'isFollower' => Follower::query()
+            ->where('following_id', $user->id)
+            ->where('follower_id', auth()->user()->id)
+            ->first(),
         ]);
+    }
+
+    function store(string $username): RedirectResponse
+    {
+        $user = User::query()
+        ->where('username', $username);
+        
+        $follower = Follower::query()
+        ->where('following_id', $user->first()->id)
+        ->where('follower_id', auth()->user()->id)
+        ->first();
+
+        if(
+            !$user->exists() ||
+            $follower !== null
+        ) {
+            return $this->unflower($username);
+        }
+
+        $follower = new Follower;
+
+        $follower->follower_id = auth()->user()->id;
+        $follower->following_id = $user->first()->id;
+
+        $follower->save();
+
+        return back();
+    }
+
+    function unflower(string $username): RedirectResponse
+    {
+        $user = User::query()
+        ->where('username', $username);
+        
+        $follower = Follower::query()
+        ->where('follower_id', auth()->user()->id);
+
+        if(
+            !$user->exists() ||
+            $follower->first()->toArray() === []
+        ) {
+            return back();
+        }
+
+        $follower = $follower
+        ->where('following_id', $user->first()->id)
+        ->delete();
+
+        return back();
     }
 
     function update(Request $request): RedirectResponse

@@ -10,6 +10,7 @@ class Follower extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
+        'follower_id',
+        'following_id',
     ];
 }
