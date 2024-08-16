@@ -34,7 +34,17 @@
                                         <div><img src="{{ $comment->user->picture }}" width="18"><span class="text2"><a href="{{ route('profile', ['username' => $comment->user->username, ]) }}">
                                             {{ $comment->user->username }}
                                         </a></span></div>
-                                        <div><span class="thumbup"><i class="fa-solid fa-heart"></i></span><span class="text4">{{ $comment->like }}</span></div>
+
+                                        <form action="POST">
+                                            <button type="submit">
+                                                <div>
+                                                    <span class="thumbup">
+                                                        <i class="fa-solid fa-heart"></i>
+                                                    </span>
+                                                    <span class="text4">{{ $comment->like }}</span>
+                                                </div>
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
