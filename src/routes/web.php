@@ -32,9 +32,8 @@ Route::namespace('App\Http\Controllers')
             'Profile\ProfileController@index'
         )->name('profile');
 
-        Route::get('/posts', function() {
-            return view('posts.posts');
-        })->name('posts');
+        Route::get('/posts', 'Post\PostController@index')
+        ->name('posts');
 
         Route::get('/logout', 'Auth\LoginController@logout')
         ->name('logout');
