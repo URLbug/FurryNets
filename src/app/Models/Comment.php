@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Comment extends Model
 {
@@ -16,10 +18,13 @@ class Comment extends Model
         'post_id'
     ];
 
-    function getUser(int $id): Comment
+    function user(): BelongsTo
     {
-        return Comment::find($id)
-        ->join('users', 'users.id', '=', 'comments.user_id')
-        ->first();
+        return $this->belongsTo(User::class);
+    }
+    
+    function post(): BelongsTo
+    {
+        return $this->belongsTo(Post::class);
     }
 }

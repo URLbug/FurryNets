@@ -15,7 +15,7 @@
                     <h5>description:</h4>
                     <p>{{ $post->description }}</p>
                     <div class="user">
-                        <div><img src="{{ $post->getUser($post->user_id)->picture }}" width="18"><span class="text2"><a href="{{ route('profile', ['username' => $post->getUser($post->user_id)->username]) }}">{{ $post->getUser($post->user_id)->username }}</a></span></div>
+                        <div><img src="{{ $post->user->picture }}" width="18"><span class="text2"><a href="{{ route('profile', ['username' => $post->user->username]) }}">{{ $post->user->username }}</a></span></div>
                     </div>
 
                     <form>
@@ -31,8 +31,8 @@
                             <div class="d-flex justify-content-center py-2">
                                 <div class="second py-2 px-2"> <span class="text1">{{ $comment->description }}</span>
                                     <div class="d-flex justify-content-between py-1 pt-2">
-                                        <div><img src="{{ $comment->getUser($comment->id)->picture }}" width="18"><span class="text2"><a href="{{ route('profile', ['username' => $comment->getUser($comment->id)->username, ]) }}">
-                                            {{ $comment->getUser($comment->id)->username }}
+                                        <div><img src="{{ $comment->user->picture }}" width="18"><span class="text2"><a href="{{ route('profile', ['username' => $comment->user->username, ]) }}">
+                                            {{ $comment->user->username }}
                                         </a></span></div>
                                         <div><span class="thumbup"><i class="fa-solid fa-heart"></i></span><span class="text4">{{ $comment->like }}</span></div>
                                     </div>
