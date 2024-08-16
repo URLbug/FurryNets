@@ -31,9 +31,10 @@ Route::namespace('App\Http\Controllers')
             '/profile/{username}', 
             'Profile\ProfileController@index'
         )->name('profile');
-
-        Route::get('/posts', 'Post\PostController@index')
-        ->name('posts');
+        
+        Route::get('/posts/{id?}', 'Post\PostController@index')
+        ->name('posts')
+        ->defaults('id', 0);;
 
         Route::get('/logout', 'Auth\LoginController@logout')
         ->name('logout');

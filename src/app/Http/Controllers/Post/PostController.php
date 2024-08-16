@@ -10,13 +10,35 @@ use Illuminate\Contracts\View\View;
 
 class PostController extends Controller
 {
-    function index(Request $request): View
+    function index(int $id, Request $request): View
     {
+        if($id !== 0)
+        {
+            $post = $this->getPost($id);
+
+            return view('posts.detail_posts', [
+                'post' => $post,
+            ]);
+        }
+
         $post = Post::query()
         ->paginate();
 
         return view('posts.posts', [
             'posts' => $post,
         ]);
+    }
+
+    function getPost(int $id): ?Post
+    {
+        $post = Post::query()
+        ->where('id', $id);
+
+        if(isset($post))
+        {
+            return $post->first();
+        }
+
+        return null;
     }
 }

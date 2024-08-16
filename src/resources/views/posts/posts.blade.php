@@ -1,6 +1,8 @@
 @extends('app.app')
 
 @section('content')
+    <br>
+
     <x-posts-component :posts="$posts"/>
 
     <div class="d-flex justify-content-around">

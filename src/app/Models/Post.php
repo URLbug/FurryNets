@@ -23,4 +23,11 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    function getUser(int $id): Post
+    {
+        return Post::find($id)
+        ->join('users', 'users.id', '=', 'posts.user_id')
+        ->first();
+    }
 }

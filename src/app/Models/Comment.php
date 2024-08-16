@@ -13,6 +13,13 @@ class Comment extends Model
         'like',
         'description',
         'user_id',
-        'posts_id'
+        'post_id'
     ];
+
+    function getUser(int $id): Comment
+    {
+        return Comment::find($id)
+        ->join('users', 'users.id', '=', 'comments.user_id')
+        ->first();
+    }
 }
