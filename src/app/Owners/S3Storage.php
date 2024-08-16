@@ -15,7 +15,7 @@ final class S3Storage
     {
         return str_replace(
             's3mock:9090', 
-            'localhost:9091', 
+            'localhost:' . env('S3_DOCKER_PORT'), 
             Storage::cloud()->url($name)
         );
     }
