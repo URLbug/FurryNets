@@ -20,7 +20,7 @@
 
                     <form method="POST" action="{{ route('posts', ['id' => $post->id]) }}">
                         @csrf
-                        @method('PATCH')
+                        @method('POST')
                         <button class="btn btn-primary"><i class="fa-solid fa-heart"></i>{{ count($post->like) }} Like</button>
                     </form>
                     <input type="hidden" id="in01" value="{{ route('posts', ['id' => $post->id]) }}" readonly>
@@ -37,9 +37,9 @@
                                             {{ $comment->user->username }}
                                         </a></span></div>
 
-                                        <form method="POST" action="{{ route('posts', ['id' => $post->id]) }}">
+                                        <form method="POST" action="{{ route('comment', ['id' => $comment->id]) }}">
                                             @csrf
-                                            @method('PATCH')
+                                            @method('POST')
                                             <button type="submit">
                                                 <div>
                                                     <span class="thumbup">

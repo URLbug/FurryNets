@@ -16,7 +16,7 @@ class PostController extends Controller
     {
         if($id !== 0)
         {
-            if($request->isMethod('PATCH'))
+            if($request->isMethod('POST'))
             {
                 return $this->storeLike($id);
             }

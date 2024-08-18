@@ -33,11 +33,14 @@ Route::namespace('App\Http\Controllers')
         )->name('profile');
         
         Route::match(
-            ['get', 'patch'],
+            ['get', 'post'],
             '/posts/{id?}', 
             'Post\PostController@index'
         )->name('posts')
-        ->defaults('id', 0);;
+        ->defaults('id', 0);
+
+        Route::post('/comment/{id}', 'Post\CommentController@index')
+        ->name('comment');
 
         Route::get('/logout', 'Auth\LoginController@logout')
         ->name('logout');
