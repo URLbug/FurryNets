@@ -39,8 +39,9 @@ Route::namespace('App\Http\Controllers')
         )->name('posts')
         ->defaults('id', 0);
 
-        Route::post('/comment/{id}', 'Post\CommentController@index')
-        ->name('comment');
+        Route::post('/comment/{id?}', 'Post\CommentController@index')
+        ->name('comment')
+        ->defaults('id', 0);
 
         Route::get('/logout', 'Auth\LoginController@logout')
         ->name('logout');

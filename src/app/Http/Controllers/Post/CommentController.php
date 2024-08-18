@@ -12,9 +12,14 @@ class CommentController extends Controller
 {
     function index(int $id, Request $request): RedirectResponse
     {
-        if($request->isMethod('POST') && $id !== 0)
-        {
-            return $this->storeLike($id);
+        if($request->isMethod('POST'))
+        {   
+            if($id !== 0)
+            {
+                return $this->storeLike($id);
+            }
+
+            return $this->storeComment($request);
         }
 
         return back();
@@ -31,6 +36,24 @@ class CommentController extends Controller
         }
 
         return null;
+    }
+
+    function storeComment(Request $request): RedirectResponse
+    {
+        $data = $request->validate([
+            'text' => 'required|string',
+            'post' => 'required|int'
+        ]);
+
+        $comment = new Comment;
+
+        $comment->user_id = auth()->user()->id;
+        $comment->post_id = $data['post'];
+        $comment->description = $data['text'];
+
+        $comment->save();
+
+        return back();
     }
 
     function unLike(int $id): RedirectResponse 

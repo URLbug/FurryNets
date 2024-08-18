@@ -27,7 +27,13 @@
                     <button class="btn btn-success" id="btn01" data-clipboard-target="#in01"><i class="fa-solid fa-share"></i> Share</button>
                 
                     <div class="container justify-content-center mt-5 border-left border-right">
-                        <div class="d-flex justify-content-center pt-3 pb-2"> <input type="text" name="text" placeholder="+ Add a note" class="form-control addtxt"> </div>
+                        <form action="{{ route('comment', ['id' => 0]) }}" method="POST">
+                            @csrf
+                            @method('POST')
+
+                            <input type="hidden" name="post" value="{{ $post->id }}">
+                            <div class="d-flex justify-content-center pt-3 pb-2"> <input type="text" name="text" placeholder="+ Add a note" class="form-control addtxt"> </div>
+                        </form>
                         
                         @foreach($post->comment()->get() as $comment)
                             <div class="d-flex justify-content-center py-2">
