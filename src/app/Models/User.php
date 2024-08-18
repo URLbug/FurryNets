@@ -57,6 +57,11 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
+    function like(): HasMany
+    {
+        return $this->hasMany(Like::class);
+    }
+
     /**
      * Get the attributes that should be cast.
      *

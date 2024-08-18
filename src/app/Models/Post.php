@@ -14,7 +14,6 @@ class Post extends Model
 
     protected $fillable = [
         'name',
-        'like',
         'description',
         'tags',
         'file',
@@ -29,5 +28,10 @@ class Post extends Model
     function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    function like(): HasMany
+    {
+        return $this->hasMany(Like::class);
     }
 }

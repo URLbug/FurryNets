@@ -18,7 +18,6 @@ class PostFactory extends Factory
     {
         return [
             'name' => fake()->text(50),
-            'like' => fake()->randomNumber(),
             'description' => fake()->text(),
             'file' => fake()->imageUrl(),
             'tags' => json_encode(['none' => 'none']),
