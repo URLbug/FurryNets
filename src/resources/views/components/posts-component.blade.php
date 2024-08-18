@@ -11,7 +11,7 @@
                 <a href="{{ route('posts', ['id' => $post->id]) }}" class="btn btn-primary">{{ $post->name }}</a>
                 <p class="card-text">{{ $post->description }}</p>
                 <form>
-                    <button class="btn btn-primary"><i class="fa-solid fa-heart"></i>{{ $post->like }} Like</button>
+                    <button class="btn btn-primary"><i class="fa-solid fa-heart"></i>{{ count($post->like) }} Like</button>
                 </form>
 
                 <a href="{{ route('posts', ['id' => $post->id]) }}" class="btn btn-secondary"><i class="fa-solid fa-comment"></i>{{ count($post->comment->toArray()) }} Comment</a>

@@ -32,8 +32,11 @@ Route::namespace('App\Http\Controllers')
             'Profile\ProfileController@index'
         )->name('profile');
         
-        Route::get('/posts/{id?}', 'Post\PostController@index')
-        ->name('posts')
+        Route::match(
+            ['get', 'patch'],
+            '/posts/{id?}', 
+            'Post\PostController@index'
+        )->name('posts')
         ->defaults('id', 0);;
 
         Route::get('/logout', 'Auth\LoginController@logout')
