@@ -42,7 +42,7 @@ class CommentController extends Controller
     {
         $data = $request->validate([
             'text' => 'required|string',
-            'post' => 'required|int'
+            'post' => 'required|int|not_in:0|max:0'
         ]);
 
         $comment = new Comment;
