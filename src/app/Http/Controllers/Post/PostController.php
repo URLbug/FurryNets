@@ -23,6 +23,11 @@ class PostController extends Controller
 
             $post = $this->getPost($id);
 
+            if(!isset($post))
+            {
+                abort(404);
+            }
+
             return view('posts.detail_posts', [
                 'post' => $post,
             ]);
@@ -95,7 +100,7 @@ class PostController extends Controller
 
         if(!isset($post))
         {
-            return back();
+            abort(404);
         }
 
         return $post;
