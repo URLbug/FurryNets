@@ -78,12 +78,14 @@ class PostControllerTest extends TestCase
 
     public function test_unlike_and_like_null_post(): void
     {
+        $this->login();
+        
         $response = $this->post('/posts/0');
 
-        $response->assertStatus(302);
+        $response->assertStatus(200);
 
         $response = $this->post('/posts/0');
 
-        $response->assertStatus(302);
+        $response->assertStatus(200);
     }
 }

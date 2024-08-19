@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Owners\S3Storage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
@@ -165,11 +166,13 @@ class ProfileControllerTest extends TestCase
     {
         $this->auth_user();
 
+        $picture = UploadedFile::fake()->image('avatar.jpg');
+
         $response = $this->patch('/profile/admin', [
-            'picture' => fake()->image(public_path('/img/')),
+            'picture' => $picture,
         ]);
 
-        $response->assertStatus(302);
+        S3Storage::assertExists($picture->hashName());
 
         auth()->logout();
     }
@@ -178,11 +181,13 @@ class ProfileControllerTest extends TestCase
     {
         $this->auth_user();
 
+        $picture = UploadedFile::fake()->image('avatar.jpg');
+
         $response = $this->patch('/profile/admin', [
-            'picture' => fake()->image(public_path('/img/')),
+            'picture' => $picture,
         ]);
 
-        $response->assertStatus(302);
+        S3Storage::assertExists($picture->hashName());
 
         auth()->logout();
     }
