@@ -41,8 +41,8 @@ class CommentController extends Controller
     function storeComment(Request $request): RedirectResponse
     {
         $data = $request->validate([
-            'text' => 'required|string',
-            'post' => 'required|int|not_in:0|max:0'
+            'text' => 'required|string|max:250',
+            'post' => 'required|numeric|not_in:0|min:0'
         ]);
 
         $comment = new Comment;

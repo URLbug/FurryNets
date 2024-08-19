@@ -16,6 +16,14 @@ class CommentControllerTest extends TestCase
         ]);
     }
 
+    public function test_base(): void
+    {
+        $response = $this->get('/comment');
+
+        $response->assertStatus(405);
+    }
+
+
     public function test_add_comment(): void
     {
         $this->login();
@@ -84,6 +92,18 @@ class CommentControllerTest extends TestCase
 
         $response = $this->post('/comment', [
             'text' => '',
+            'post' => 1,
+        ]);
+
+        $response->assertStatus(302);
+    }
+
+    public function test_add_long_text(): void
+    {
+        $this->login();
+
+        $response = $this->post('/comment', [
+            'text' => fake()->text(500),
             'post' => 1,
         ]);
 
