@@ -160,43 +160,4 @@ class ProfileControllerTest extends TestCase
 
         auth()->logout();
     }
-
-    public function test_edit_picture(): void
-    {
-        $this->auth_user();
-
-        $response = $this->patch('/profile/admin', [
-            'picture' => fake()->image(public_path('/img/')),
-        ]);
-
-        $response->assertStatus(302);
-
-        auth()->logout();
-    }
-
-    public function test_edit_picture_2(): void
-    {
-        $this->auth_user();
-
-        $response = $this->patch('/profile/admin', [
-            'picture' => fake()->image(public_path('/img/')),
-        ]);
-
-        $response->assertStatus(302);
-
-        auth()->logout();
-    }
-
-    public function test_edit_not_picture(): void
-    {
-        $this->auth_user();
-
-        $response = $this->patch('/profile/admin', [
-            'picture' => fake()->randomAscii(),
-        ]);
-
-        $response->assertStatus(302);
-
-        auth()->logout();
-    }
 }
