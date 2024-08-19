@@ -37,9 +37,14 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    function follower(): HasMany
+    public function following() 
     {
-        return $this->hasMany(Follower::class);
+        return $this->hasMany(Follower::class, 'following_id');
+    }
+    
+    public function follower() 
+    {
+        return $this->hasMany(Follower::class, 'follower_id');
     }
 
     function post(): HasMany
@@ -50,6 +55,11 @@ class User extends Authenticatable
     function comment(): HasMany
     {
         return $this->hasMany(Comment::class);
+    }
+
+    function like(): HasMany
+    {
+        return $this->hasMany(Like::class);
     }
 
     /**

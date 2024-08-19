@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Owners\S3Storage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
@@ -154,6 +155,45 @@ class ProfileControllerTest extends TestCase
 
         $response = $this->patch('/profile/admin', [
             'tiktok' => fake()->randomDigit(),
+        ]);
+
+        $response->assertStatus(302);
+
+        auth()->logout();
+    }
+
+    public function test_edit_picture(): void
+    {
+        $this->auth_user();
+
+        $response = $this->patch('/profile/admin', [
+            'picture' => fake()->image(public_path('/img/')),
+        ]);
+
+        $response->assertStatus(302);
+
+        auth()->logout();
+    }
+
+    public function test_edit_picture_2(): void
+    {
+        $this->auth_user();
+
+        $response = $this->patch('/profile/admin', [
+            'picture' => fake()->image(public_path('/img/')),
+        ]);
+
+        $response->assertStatus(302);
+
+        auth()->logout();
+    }
+
+    public function test_edit_not_picture(): void
+    {
+        $this->auth_user();
+
+        $response = $this->patch('/profile/admin', [
+            'picture' => fake()->randomAscii(),
         ]);
 
         $response->assertStatus(302);

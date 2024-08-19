@@ -20,6 +20,16 @@ final class S3Storage
         );
     }
 
+    static function assertExists(string $name): void
+    {
+        $isFile = Storage::disk('s3')->exists($name);
+
+        if(!$isFile)
+        {
+            throw new \Exception("File $name does not exist");
+        }
+    }
+
     static function deleteFile(string $name): bool
     {
         return Storage::disk('s3')->delete($name);

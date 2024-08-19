@@ -22,10 +22,14 @@
                             @if(Auth::user()->username === $username)
                                 <a class="btn btn-outline-primary" href="{{ route('logout') }}">Logout</a>
                             @else
-                                <form action="" method="post">
+                                <form action="{{ route('profile', ['username' => $username]) }}" method="post">
                                     @csrf
                                     
-                                    <button class="btn btn-primary">Follow</button>
+                                    @if($isFollower === null)
+                                        <button class="btn btn-primary">Follow</button>
+                                    @else
+                                        <button class="btn btn-primary">Unfollow</button>
+                                    @endif
                                 </form>
                             @endif
                         </div>
@@ -93,34 +97,39 @@
                         @else
                             Not socialnetworks.
                         @endif
-                            <hr>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit">Edit</button>
-                                </div>
-                            </div>
+
+                            @if($username === Auth::user()->username)
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit">Edit</button>
+                                        </div>
+                                    </div>
+                            @endif
                         </div>
+
                     </div>
                     <!-- Posts -->
                         <x-posts-component :posts="$posts"/>
 
-                        <div class="modal fade" id="edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Edit profile</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="text-center">
-                                    <form action="{{ route('profile', ['username' => $username]) }}" method="post" enctype="multipart/form-data">
-                                        @csrf
-                                        @method('PATCH')
+                        @if($username === Auth::user()->username)
+                            <div class="modal fade" id="edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Edit profile</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="text-center">
+                                        <form action="{{ route('profile', ['username' => $username]) }}" method="post" enctype="multipart/form-data">
+                                            @csrf
+                                            @method('PATCH')
 
-                                        <div class="row">
-                                            <p>Picture</p>
-                                            <input type="file" accept="image/*" name="picture">
-                                        </div>
+                                            <div class="row">
+                                                <p>Picture</p>
+                                                <input type="file" accept="image/*" name="picture">
+                                            </div>
 
                                         <div class="row">
                                             <p>About Me:</p>
@@ -131,13 +140,11 @@
                                         <hr>
                                         <div class="row">
                                             <p>Socialnetworks:</p>
-                                            
-                                            <p>Patreon: <input type="text" value="{{ isset($user->socialnetworks['patreon']) ? $user->socialnetworks['patreon'] : null }}" name="patreon" id=""></p>
-                                            <p>GitHub: <input type="text" value="{{ isset($user->socialnetworks['github']) ? $user->socialnetworks['github'] : null }}"  name="github" id=""></p>
-                                            <p>Discord: <input type="text" value="{{ isset($user->socialnetworks['discord']) ? $user->socialnetworks['discord'] : null }}" name="discord" id=""></p>
-                                            <p>Twitter: <input type="text" value="{{ isset($user->socialnetworks['twitter']) ? $user->socialnetworks['twitter'] : null }}" name="twitter" id=""></p>
-                                            <p>TikTok: <input type="text" value="{{ isset($user->socialnetworks['tiktok']) ? $user->socialnetworks['tiktok'] : null }}" name="tiktok" id=""></p>
-
+                                                <p>Patreon: <input type="text" value="{{ isset($user->socialnetworks['patreon']) ? $user->socialnetworks['patreon'] : null }}" name="patreon" id=""></p>
+                                                <p>GitHub: <input type="text" value="{{ isset($user->socialnetworks['github']) ? $user->socialnetworks['github'] : null }}"  name="github" id=""></p>
+                                                <p>Discord: <input type="text" value="{{ isset($user->socialnetworks['discord']) ? $user->socialnetworks['discord'] : null }}" name="discord" id=""></p>
+                                                <p>Twitter: <input type="text" value="{{ isset($user->socialnetworks['twitter']) ? $user->socialnetworks['twitter'] : null }}" name="twitter" id=""></p>
+                                                <p>TikTok: <input type="text" value="{{ isset($user->socialnetworks['tiktok']) ? $user->socialnetworks['tiktok'] : null }}" name="tiktok" id=""></p>
                                             </div>
                                         </div>
                                     </div>
@@ -150,6 +157,7 @@
                                 </div>
                             </div>
                             </div>
+                        @endif
                     
                     
                     </div>

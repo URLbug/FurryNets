@@ -8,14 +8,17 @@
             @endif
 
             <div class="card-body">
-                <a href="detal-page.html" class="btn btn-primary">{{ $post->name }}</a>
+                <a href="{{ route('posts', ['id' => $post->id]) }}" class="btn btn-primary">{{ $post->name }}</a>
                 <p class="card-text">{{ $post->description }}</p>
-                <form>
-                    <button class="btn btn-primary"><i class="fa-solid fa-heart"></i>{{ $post->like }} Like</button>
-                    <button class="btn btn-secondary"><i class="fa-solid fa-comment"></i>{{ count($post->comment->toArray()) }} Comment</button>
+                <form method="POST" action="{{ route('posts', ['id' => $post->id]) }}">
+                    @csrf
+                    @method('POST')
+                    <button class="btn btn-primary"><i class="fa-solid fa-heart"></i>{{ count($post->like) }} Like</button>
                 </form>
 
-                <input type="hidden" id="in01" value="{{ route('home') }}" readonly>
+                <a href="{{ route('posts', ['id' => $post->id]) }}" class="btn btn-secondary"><i class="fa-solid fa-comment"></i>{{ count($post->comment->toArray()) }} Comment</a>
+
+                <input type="hidden" id="in01" value="{{ route('posts', ['id' => $post->id]) }}" readonly>
                 <button class="btn btn-success" id="btn01" data-clipboard-target="#in01"><i class="fa-solid fa-share"></i> Share</button>
 
             </div>

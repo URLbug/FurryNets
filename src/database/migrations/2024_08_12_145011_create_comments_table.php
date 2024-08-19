@@ -29,7 +29,6 @@ return new class extends Migration
             ->cascadeOnUpdate();
             
             $table->string('description');
-            $table->unsignedBigInteger('like');
 
             $table->timestamps();
         });

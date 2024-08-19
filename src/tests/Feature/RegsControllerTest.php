@@ -22,7 +22,7 @@ class RegsControllerTest extends TestCase
 
     public function test_base(): void
     {
-        $response = $this->get('/');
+        $response = $this->get('/regs');
 
         $response->assertStatus(200);
     }

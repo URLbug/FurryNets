@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Comment;
+use App\Models\Like;
 use App\Models\Post;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -22,5 +24,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Post::factory(10)->create();
+        Comment::factory(30)->create();
+        Like::factory(10)->create();
     }
 }

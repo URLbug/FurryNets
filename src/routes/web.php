@@ -27,14 +27,21 @@ Route::namespace('App\Http\Controllers')
     Route::middleware('auth')
     ->group(function() {
         Route::match(
-            ['get', 'patch'],
+            ['get', 'patch', 'post'],
             '/profile/{username}', 
             'Profile\ProfileController@index'
         )->name('profile');
+        
+        Route::match(
+            ['get', 'post'],
+            '/posts/{id?}', 
+            'Post\PostController@index'
+        )->name('posts')
+        ->defaults('id', 0);
 
-        Route::get('/posts', function() {
-            return view('posts.posts');
-        })->name('posts');
+        Route::post('/comment/{id?}', 'Post\CommentController@index')
+        ->name('comment')
+        ->defaults('id', 0);
 
         Route::get('/logout', 'Auth\LoginController@logout')
         ->name('logout');
