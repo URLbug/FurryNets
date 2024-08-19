@@ -66,7 +66,7 @@ class PostControllerTest extends TestCase
     public function test_unlike_and_like_ghost_post(): void
     {
         $this->login();
-        
+
         $response = $this->post('/posts/111');
 
         $response->assertStatus(404);
@@ -76,14 +76,14 @@ class PostControllerTest extends TestCase
         $response->assertStatus(404);
     }
 
-    // public function test_unlike_and_like_null_post(): void
-    // {
-    //     $response = $this->post('/posts/0');
+    public function test_unlike_and_like_null_post(): void
+    {
+        $response = $this->post('/posts/0');
 
-    //     $response->assertStatus(302);
+        $response->assertStatus(302);
 
-    //     $response = $this->post('/posts/0');
+        $response = $this->post('/posts/0');
 
-    //     $response->assertStatus(302);
-    // }
+        $response->assertStatus(302);
+    }
 }
