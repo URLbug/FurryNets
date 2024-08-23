@@ -19,7 +19,7 @@ class LikeFactory extends Factory
         return [
             'user_id' => 1,
             'comment_id' => random_int(1, 30),
-            'post_id' => random_int(1, 10),
+            'post_id' => 2,
         ];
     }
 }
