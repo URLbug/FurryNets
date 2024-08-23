@@ -56,9 +56,9 @@ class PostController extends Controller
 
     function storeLike(int $id): JsonResponse
     {
-        $post = $this->isLike($id);
+        $like = $this->isLike($id);
 
-        if($post->like->toArray() !== [])
+        if(isset($like))
         {
             return $this->unLike($id);
         }
@@ -79,9 +79,9 @@ class PostController extends Controller
 
     function unLike(int $id): JsonResponse
     {
-        $post = $this->isLike($id);
+        $like = $this->isLike($id);
 
-        if($post->like->toArray() === [])
+        if(!isset($like))
         {
             return response()->json([
                 'message' => 'error',
@@ -91,6 +91,7 @@ class PostController extends Controller
 
         Like::query()
         ->where('post_id', $id)
+        ->where('user_id', auth()->user()->id)
         ->delete();
 
         return response()->json([
@@ -100,20 +101,18 @@ class PostController extends Controller
         ]);
     }
 
-    private function isLike(int $id): RedirectResponse|Post
+    private function isLike(int $id): RedirectResponse|Like|null
     {
         if($id === 0)
         {
             return back();
         }
 
-        $post = $this->getPost($id);
+        $like = Like::query()
+        ->where('post_id', $id)
+        ->where('user_id', auth()->user()->id)
+        ->first();
 
-        if(!isset($post))
-        {
-            abort(404);
-        }
-
-        return $post;
+        return $like;
     }
 }

@@ -59,9 +59,9 @@ class CommentController extends Controller
 
     function unLike(int $id): JsonResponse 
     {
-        $comment = $this->isLike($id);
+        $like = $this->isLike($id);
 
-        if($comment->like->toArray() === [])
+        if(!isset($like))
         {
             return response()->json([
                 'message' => 'error',
@@ -71,6 +71,7 @@ class CommentController extends Controller
 
         Like::query()
         ->where('comment_id', $id)
+        ->where('user_id', auth()->user()->id)
         ->delete();
 
         return response()->json([
@@ -82,9 +83,9 @@ class CommentController extends Controller
     
     function storeLike(int $id): JsonResponse 
     {
-        $comment = $this->isLike($id);
+        $like = $this->isLike($id);
 
-        if($comment->like->toArray() !== [])
+        if(isset($like))
         {
             return $this->unLike($id);
         }
@@ -103,15 +104,13 @@ class CommentController extends Controller
         ]);;
     }
 
-    private function isLike(int $id): RedirectResponse|Comment
+    private function isLike(int $id): ?Like
     {
-        $comment = $this->getComment($id);
+        $like = Like::query()
+        ->where('comment_id', $id)
+        ->where('user_id', auth()->user()->id)
+        ->first();
 
-        if(!isset($comment))
-        {
-            return back();
-        }
-
-        return $comment;
+        return $like;
     }
 }

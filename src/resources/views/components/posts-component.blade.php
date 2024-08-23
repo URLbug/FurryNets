@@ -10,7 +10,7 @@
             <div class="card-body">
                 <a href="{{ route('posts', ['id' => $post->id]) }}" class="btn btn-primary">{{ $post->name }}</a>
                 <p class="card-text">{{ $post->description }}</p>
-                <form method="POST" data-like=""="like-form-{{ $post->id }}" data-action="{{ route('posts', ['id' => $post->id]) }}">
+                <form method="POST" data-like="like-form-{{ $post->id }}" data-action="{{ route('posts', ['id' => $post->id]) }}">
                     @csrf
                     @method('POST')
                     <input type="hidden" id="id-form" value="like-form-{{ $post->id }}">
