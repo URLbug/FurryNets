@@ -10,10 +10,10 @@
             <div class="card-body">
                 <a href="{{ route('posts', ['id' => $post->id]) }}" class="btn btn-primary">{{ $post->name }}</a>
                 <p class="card-text">{{ $post->description }}</p>
-                <form method="POST" action="{{ route('posts', ['id' => $post->id]) }}">
+                <form method="POST" id="like-form-{{ $post->id }}" data-action="{{ route('posts', ['id' => $post->id]) }}">
                     @csrf
                     @method('POST')
-                    <button class="btn btn-primary"><i class="fa-solid fa-heart"></i>{{ count($post->like) }} Like</button>
+                    <button class="btn btn-primary" id="likes-{{ $post->id }}"><i class="fa-solid fa-heart"></i>{{ count($post->like) }} Like</button>
                 </form>
 
                 <a href="{{ route('posts', ['id' => $post->id]) }}" class="btn btn-secondary"><i class="fa-solid fa-comment"></i>{{ count($post->comment->toArray()) }} Comment</a>

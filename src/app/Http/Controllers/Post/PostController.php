@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Like;
 use App\Models\Post;
-use App\Models\User;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 
 class PostController extends Controller
 {
-    function index(int $id, Request $request): View|RedirectResponse
+    function index(int $id, Request $request): View|JsonResponse
     {
         if($id !== 0)
         {
@@ -54,7 +54,7 @@ class PostController extends Controller
         return null;
     }
 
-    function storeLike(int $id): RedirectResponse
+    function storeLike(int $id): JsonResponse
     {
         $post = $this->isLike($id);
 
@@ -70,23 +70,34 @@ class PostController extends Controller
 
         $like->save();
 
-        return back();
+        return response()->json([
+            'id' => $id,
+            'likes' => count($this->getPost($id)->like->toArray()),
+            'code' => 200,
+        ]);
     }
 
-    function unLike(int $id): RedirectResponse
+    function unLike(int $id): JsonResponse
     {
         $post = $this->isLike($id);
 
         if($post->like->toArray() === [])
         {
-            return back();
+            return response()->json([
+                'message' => 'error',
+                'code' => 500,
+            ]);
         }
 
         Like::query()
         ->where('post_id', $id)
         ->delete();
 
-        return back();
+        return response()->json([
+            'id' => $id,
+            'likes' => count($this->getPost($id)->like->toArray()),
+            'code' => 200,
+        ]);
     }
 
     private function isLike(int $id): RedirectResponse|Post

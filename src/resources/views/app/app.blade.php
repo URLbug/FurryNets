@@ -53,10 +53,16 @@
                         
                         {{-- The `search` should also be displayed for auth. users --}}
                         @if(Auth::check())
-                          <form class="d-flex">
-                              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                              <button class="btn btn-outline-success" type="submit">Search</button>
-                          </form>
+                          <div class="d-flex justify-content-xl-around">
+                            <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#makePost">
+                              <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                            
+                            <form class="p-2 d-flex">
+                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline-success" type="submit">Search</button>
+                            </form>
+                          </div>
                         @endif
                         {{-- end comments --}}
                     </div>
@@ -70,6 +76,31 @@
     <main>
         @yield('content')
     </main>
+
+    @if(Auth::check())
+        <div class="modal fade" id="makePost" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Create Posts</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                      <form action="" method="post" enctype="multipart/form-data">
+                              
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                            <button type="submit" class="btn btn-primary">Posts</button>
+                        </div>
+                    </form>
+                  </div>
+              </div>
+                </div>
+            </div>
+        </div>
+    @endif
 
     <br>
     <br>

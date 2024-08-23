@@ -6,11 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\Like;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 
 class CommentController extends Controller
 {
-    function index(int $id, Request $request): RedirectResponse
+    function index(int $id, Request $request): RedirectResponse|JsonResponse
     {
         if($request->isMethod('POST'))
         {   
@@ -56,23 +57,30 @@ class CommentController extends Controller
         return back();
     }
 
-    function unLike(int $id): RedirectResponse 
+    function unLike(int $id): JsonResponse 
     {
         $comment = $this->isLike($id);
 
         if($comment->like->toArray() === [])
         {
-            return $this->unLike($id);
+            return response()->json([
+                'message' => 'error',
+                'code' => 500,
+            ]);
         }
 
         Like::query()
         ->where('comment_id', $id)
         ->delete();
 
-        return back();
+        return response()->json([
+            'id' => $id,
+            'likes' => count($this->getComment($id)->like->toArray()),
+            'code' => 200,
+        ]);
     }
     
-    function storeLike(int $id): RedirectResponse 
+    function storeLike(int $id): JsonResponse 
     {
         $comment = $this->isLike($id);
 
@@ -88,7 +96,11 @@ class CommentController extends Controller
 
         $like->save();
 
-        return back();
+        return response()->json([
+            'id' => $id,
+            'likes' => count($this->getComment($id)->like->toArray()),
+            'code' => 200,
+        ]);;
     }
 
     private function isLike(int $id): RedirectResponse|Comment

@@ -18,10 +18,10 @@
                         <div><img src="{{ $post->user->picture }}" width="18"><span class="text2"><a href="{{ route('profile', ['username' => $post->user->username]) }}">{{ $post->user->username }}</a></span></div>
                     </div>
 
-                    <form method="POST" action="{{ route('posts', ['id' => $post->id]) }}">
+                    <form method="POST" id="like-form-{{ $post->id }}" data-action="{{ route('posts', ['id' => $post->id]) }}">
                         @csrf
                         @method('POST')
-                        <button class="btn btn-primary"><i class="fa-solid fa-heart"></i>{{ count($post->like) }} Like</button>
+                        <button class="btn btn-primary" id="likes-{{ $post->id }}"><i class="fa-solid fa-heart"></i>{{ count($post->like) }} Like</button>
                     </form>
                     <input type="hidden" id="in01" value="{{ route('posts', ['id' => $post->id]) }}" readonly>
                     <button class="btn btn-success" id="btn01" data-clipboard-target="#in01"><i class="fa-solid fa-share"></i> Share</button>
@@ -43,17 +43,10 @@
                                             {{ $comment->user->username }}
                                         </a></span></div>
 
-                                        <form method="POST" action="{{ route('comment', ['id' => $comment->id]) }}">
+                                        <form method="POST" id="like-form-{{ $comment->id }}" data-action="{{ route('comment', ['id' => $comment->id]) }}">
                                             @csrf
                                             @method('POST')
-                                            <button type="submit">
-                                                <div>
-                                                    <span class="thumbup">
-                                                        <i class="fa-solid fa-heart"></i>
-                                                    </span>
-                                                    <span class="text4">{{ count($comment->like) }}</span>
-                                                </div>
-                                            </button>
+                                            <button class="btn btn-primary" id="likes-{{ $comment->id }}"><i class="fa-solid fa-heart"></i>{{ count($comment->like) }} Like</button>
                                         </form>
                                     </div>
                                 </div>
