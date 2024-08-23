@@ -16,7 +16,7 @@ class PostController extends Controller
     {
         if($id !== 0)
         {
-            if($request->isMethod('POST'))
+            if($request->isMethod('POST') && $request->ajax())
             {
                 return $this->storeLike($id);
             }

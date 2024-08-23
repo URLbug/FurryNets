@@ -15,7 +15,7 @@ class CommentController extends Controller
     {
         if($request->isMethod('POST'))
         {   
-            if($id !== 0)
+            if($id !== 0 && $request->ajax())
             {
                 return $this->storeLike($id);
             }
