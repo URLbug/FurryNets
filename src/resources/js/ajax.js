@@ -1,15 +1,13 @@
 $(document).ready(function(){
-    $('form').on('submit', function(event){
+    $('[data-like]').submit(function(event){
         event.preventDefault();
 
-        var formId = '#' + $(event.target).attr('id');
-
-        var url = $(formId).attr('data-action');
+        var url = $(this).attr('data-action');
 
         $.ajax({
             url: url,
             method: 'POST',
-            data: new FormData($(formId)[0]),
+            data: new FormData($(this)[0]),
             dataType: 'JSON',
             contentType: false,
             cache: false,
@@ -22,6 +20,8 @@ $(document).ready(function(){
                 console.log(response);
             }
         });
+
+        return false;
     });
 
 });

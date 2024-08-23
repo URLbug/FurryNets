@@ -11,6 +11,7 @@
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
             <form action="{{ route('login') }}" method="POST">
                 @csrf
+                @method('POST')
                 <!-- Email input -->
                 <div data-mdb-input-init class="form-outline mb-4">
                 <input type="email" name="email" id="form3Example3" class="form-control form-control-lg"

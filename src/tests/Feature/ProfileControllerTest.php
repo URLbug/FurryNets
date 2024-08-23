@@ -20,6 +20,8 @@ class ProfileControllerTest extends TestCase
         ]);
     }
 
+    
+
     public function test_base(): void
     {
         $this->auth_user();
