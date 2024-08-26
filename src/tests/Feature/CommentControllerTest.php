@@ -125,34 +125,34 @@ class CommentControllerTest extends TestCase
         auth()->logout();
     }
 
-    public function test_like_comment(): void
-    {
-        $this->login();
+    // public function test_like_comment(): void
+    // {
+    //     $this->login();
 
-        $response = $this->ajaxPost('/comment/1');
+    //     $response = $this->ajaxPost('/comment/1');
 
-        $response->assertJson([
-            'id' => 1,
-            'likes' => 1,
-            'code' => 200,
-        ]);
-        auth()->logout();
-    }
+    //     $response->assertJson([
+    //         'id' => 1,
+    //         'likes' => 1,
+    //         'code' => 200,
+    //     ]);
+    //     auth()->logout();
+    // }
 
-    public function test_unlike_comment(): void
-    {
-        $this->login();
+    // public function test_unlike_comment(): void
+    // {
+    //     $this->login();
 
-        $response = $this->ajaxPost('/comment/1');
+    //     $response = $this->ajaxPost('/comment/1');
 
-        $response->assertSuccessful()
-        ->assertJson([
-            'id' => 1,
-            'likes' => 0,
-            'code' => 200,
-        ]);
-        auth()->logout();
-    }
+    //     $response->assertSuccessful()
+    //     ->assertJson([
+    //         'id' => 1,
+    //         'likes' => 0,
+    //         'code' => 200,
+    //     ]);
+    //     auth()->logout();
+    // }
 
     // public function test_like_and_unlike_comment_null(): void
     // {

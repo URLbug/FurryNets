@@ -2,52 +2,39 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
-    function index(Request $request): View|RedirectResponse
+    /*
+    |--------------------------------------------------------------------------
+    | Login Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles authenticating users for the application and
+    | redirecting them to your home screen. The controller uses a trait
+    | to conveniently provide its functionality to your applications.
+    |
+    */
+
+    use AuthenticatesUsers;
+
+    /**
+     * Where to redirect users after login.
+     *
+     * @var string
+     */
+    protected $redirectTo = '/home';
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
     {
-        if($request->isMethod('POST'))
-        {
-            return $this->store($request);
-        }
-
-        return view('auth.login');
-    }
-
-    function store(Request $request): RedirectResponse
-    {
-        $data = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|string',
-            'remember_me' => 'string',
-        ]);
-
-        $isAuth = Auth::attempt([
-            'email' => $data['email'],
-            'password' => $data['password'],
-        ], isset($data['remember_me']));
-
-        if(!$isAuth)
-        {
-            return back()
-            ->withErrors('Incorrect password or login');
-        }
-
-        return redirect()->route('profile', [
-            'username' => auth()->user()->username,
-        ])->with('success', 'You have successfully logged in!');
-    }
-
-    function logout(): RedirectResponse
-    {
-        Auth::logout();
-
-        return redirect()->route('login');
+        $this->middleware('guest')->except('logout');
+        $this->middleware('auth')->only('logout');
     }
 }

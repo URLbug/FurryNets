@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notifiable;
 
 use Orchid\Platform\Models\User as OrchidUser;
 
-class User extends OrchidUser
+class User extends OrchidUser implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
 
@@ -28,6 +28,7 @@ class User extends OrchidUser
         'picture',
         'description',
         'permissions',
+        'email_verified_at',
         'socialnetworks',
     ];
 
