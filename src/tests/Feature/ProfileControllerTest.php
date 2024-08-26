@@ -169,7 +169,7 @@ class ProfileControllerTest extends TestCase
         $this->auth_user();
 
         $response = $this->patch('/profile/admin', [
-            'picture' => fake()->image(public_path('/img/')),
+            'picture' => UploadedFile::fake()->image('test.png'),
         ]);
 
         $response->assertStatus(302);
@@ -182,7 +182,7 @@ class ProfileControllerTest extends TestCase
         $this->auth_user();
 
         $response = $this->patch('/profile/admin', [
-            'picture' => fake()->image(public_path('/img/')),
+            'picture' => UploadedFile::fake()->image('test.png'),
         ]);
 
         $response->assertStatus(302);

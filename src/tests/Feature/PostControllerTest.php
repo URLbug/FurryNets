@@ -103,7 +103,7 @@ class PostControllerTest extends TestCase
 
         $data = [
             'name' => 'Test Post',
-            'file' => UploadedFile::fake()->image('test.jpg', 400, 400),
+            'file' => UploadedFile::fake()->image('test.png', 400, 400),
             'description' => 'Test description',
         ];
 
