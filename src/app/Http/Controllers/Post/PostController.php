@@ -40,6 +40,7 @@ class PostController extends Controller
         }
 
         $posts = Post::query()
+        ->orderByDesc('id')
         ->paginate();
 
         return view('posts.posts', [
@@ -70,7 +71,7 @@ class PostController extends Controller
 
         $post->save();
 
-        return back();
+        return back()->with('success', 'Create new post!');
     }
 
     function getPost(int $id): ?Post

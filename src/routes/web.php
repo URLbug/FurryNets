@@ -43,6 +43,9 @@ Route::namespace('App\Http\Controllers')
         ->name('comment')
         ->defaults('id', 0);
 
+        Route::post('/search', 'Search\SearchController@index')
+        ->name('search');
+
         Route::get('/logout', 'Auth\LoginController@logout')
         ->name('logout');
     });

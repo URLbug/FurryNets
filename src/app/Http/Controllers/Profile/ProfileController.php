@@ -39,7 +39,7 @@ class ProfileController extends Controller
         return view('profile', [
             'username' => $username,
             'user' => $user,
-            'posts' => $user->post()->get(),
+            'posts' => $user->post()->orderByDesc('id')->get(),
             'followers' => Follower::query()
             ->where('following_id', $user->id)
             ->get(['follower_id']),

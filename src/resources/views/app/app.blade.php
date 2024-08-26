@@ -58,8 +58,11 @@
                               <i class="fa-solid fa-pen-to-square"></i>
                             </button>
                             
-                            <form class="p-2 d-flex">
-                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <form action="{{ route('search') }}" method="POST" class="p-2 d-flex">
+                                @csrf
+                                @method('POST')
+
+                                <input class="form-control me-2" type="search" placeholder="Search" name="search" aria-label="Search">
                                 <button class="btn btn-outline-success" type="submit">Search</button>
                             </form>
                           </div>
@@ -74,7 +77,19 @@
     <!-- header end -->
 
     <main>
-        @yield('content')
+      @if(Session::has('success'))
+          <div class="alert alert-success alert-dismissible" role="alert">
+              <strong>Success !</strong> {{ session('success') }}
+          </div>
+      @endif
+
+      @if($errors->any())
+          <div class="alert alert-danger alert-dismissible" role="alert">
+              <strong>Error !</strong> {{ $errors->first() }}
+          </div>
+      @endif
+
+      @yield('content')
     </main>
 
     @if(Auth::check())
@@ -103,7 +118,8 @@
 
                         <div class="row">
                           <p>Description</p>
-                          <input type="text" name="name" id="name">
+                          <textarea type="text" name="description" id="description">
+                          </textarea>
                         </div>
 
                         <div class="modal-footer">

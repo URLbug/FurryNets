@@ -2,6 +2,7 @@
 
 @section('content')
     <br>
+    
 
     <x-posts-component :posts="$posts"/>
 
