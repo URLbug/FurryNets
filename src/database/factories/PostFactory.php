@@ -20,7 +20,6 @@ class PostFactory extends Factory
             'name' => fake()->text(50),
             'description' => fake()->text(),
             'file' => fake()->imageUrl(),
-            'tags' => json_encode(['none' => 'none']),
             'user_id' => 1,
         ];
     }

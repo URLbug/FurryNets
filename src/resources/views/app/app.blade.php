@@ -88,7 +88,24 @@
                 <div class="modal-body">
                     <div class="text-center">
                       <form action="" method="post" enctype="multipart/form-data">
-                              
+                        @csrf
+                        @method('POST')
+                        
+                        <div class="row">
+                          <p>File</p>
+                          <input type="file" name="file" id="file">
+                        </div>
+
+                        <div class="row">
+                          <p>Name Post</p>
+                          <input type="text" name="name" id="name">
+                        </div>
+
+                        <div class="row">
+                          <p>Description</p>
+                          <input type="text" name="name" id="name">
+                        </div>
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
