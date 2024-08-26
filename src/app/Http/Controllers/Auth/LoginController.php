@@ -36,12 +36,12 @@ class LoginController extends Controller
         if(!$isAuth)
         {
             return back()
-            ->withErrors('Not auth');
+            ->withErrors('Incorrect password or login');
         }
 
         return redirect()->route('profile', [
             'username' => auth()->user()->username,
-        ]);
+        ])->with('success', 'You have successfully logged in!');
     }
 
     function logout(): RedirectResponse

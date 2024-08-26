@@ -45,6 +45,8 @@ class RegsController extends Controller
 
         $user->save();
 
-        return redirect()->route('login');
+        return redirect()
+        ->route('login')
+        ->with('success', 'You have successfully registed in!');
     }
 }
