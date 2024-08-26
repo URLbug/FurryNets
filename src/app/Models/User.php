@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+use Orchid\Platform\Models\User as OrchidUser;
+
+class User extends OrchidUser
 {
     use HasFactory, Notifiable;
 
@@ -18,12 +20,14 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'name',
         'username',
         'email',
         'password',
         'remember_token',
         'picture',
         'description',
+        'permissions',
         'socialnetworks',
     ];
 
