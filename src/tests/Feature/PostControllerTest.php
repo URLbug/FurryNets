@@ -103,7 +103,7 @@ class PostControllerTest extends TestCase
 
         $data = [
             'name' => 'Test Post',
-            'file' => UploadedFile::fake()->image('test.jpg'),
+            'file' => UploadedFile::fake()->image('test.jpg', 400, 400),
             'description' => 'Test description',
         ];
 
@@ -111,7 +111,6 @@ class PostControllerTest extends TestCase
         $response = $this->post(route('posts'), $data);
 
         // Assert
-        dd($response->exception);
         $response->assertRedirect();
         
         $post = Post::query()
