@@ -107,6 +107,8 @@ class PostControllerTest extends TestCase
             'description' => 'Test description',
         ];
 
+        dd($data);
+
         // Act
         $response = $this->post(route('posts'), $data);
 
