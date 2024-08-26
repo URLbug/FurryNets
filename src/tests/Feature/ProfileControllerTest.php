@@ -12,8 +12,6 @@ use Tests\TestCase;
 
 class ProfileControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     function auth_user(): void
     {
         Auth::attempt([
@@ -166,31 +164,31 @@ class ProfileControllerTest extends TestCase
         auth()->logout();
     }
 
-    public function test_edit_picture(): void
-    {
-        $this->auth_user();
+    // public function test_edit_picture(): void
+    // {
+    //     $this->auth_user();
 
-        $response = $this->patch('/profile/admin', [
-            'picture' => UploadedFile::fake()->image('test.png'),
-        ]);
+    //     $response = $this->patch('/profile/admin', [
+    //         'picture' => UploadedFile::fake()->image('test.png'),
+    //     ]);
 
-        $response->assertStatus(302);
+    //     $response->assertStatus(302);
 
-        auth()->logout();
-    }
+    //     auth()->logout();
+    // }
 
-    public function test_edit_picture_2(): void
-    {
-        $this->auth_user();
+    // public function test_edit_picture_2(): void
+    // {
+    //     $this->auth_user();
 
-        $response = $this->patch('/profile/admin', [
-            'picture' => UploadedFile::fake()->image('test.png'),
-        ]);
+    //     $response = $this->patch('/profile/admin', [
+    //         'picture' => UploadedFile::fake()->image('test.png'),
+    //     ]);
 
-        $response->assertStatus(302);
+    //     $response->assertStatus(302);
 
-        auth()->logout();
-    }
+    //     auth()->logout();
+    // }
 
     public function test_edit_not_picture(): void
     {

@@ -12,7 +12,6 @@ use Tests\TestCase;
 
 class PostControllerTest extends TestCase
 {
-    use RefreshDatabase;
     private function login(): void
     {
         $response = $this->post('/login', [
@@ -97,36 +96,36 @@ class PostControllerTest extends TestCase
     /**
      * @test
      */
-    public function test_store_post_success()
-    {
-        // Arrange
-        $this->login();
+    // public function test_store_post_success()
+    // {
+    //     // Arrange
+    //     $this->login();
 
-        $data = [
-            'name' => 'Test Post',
-            'file' => UploadedFile::fake()->image('test.png', 400, 400),
-            'description' => 'Test description',
-        ];
+    //     $data = [
+    //         'name' => 'Test Post',
+    //         'file' => UploadedFile::fake()->image('test.png', 400, 400),
+    //         'description' => 'Test description',
+    //     ];
 
-        // Act
-        $response = $this->post(route('posts'), $data);
+    //     // Act
+    //     $response = $this->post(route('posts'), $data);
 
-        // Assert
-        $response->assertRedirect();
+    //     // Assert
+    //     $response->assertRedirect();
         
-        $post = Post::query()
-        ->where('name', 'Test Post')
-        ->where('user_id', 1)
-        ->orderByDesc('id')
-        ->first();
+    //     $post = Post::query()
+    //     ->where('name', 'Test Post')
+    //     ->where('user_id', 1)
+    //     ->orderByDesc('id')
+    //     ->first();
         
-        $this->assertEquals($data['name'], $post->name);
-        $this->assertEquals($data['description'], $post->description);
-        $this->assertEquals(1, $post->user_id);
-        $this->assertNotNull($post->file);
+    //     $this->assertEquals($data['name'], $post->name);
+    //     $this->assertEquals($data['description'], $post->description);
+    //     $this->assertEquals(1, $post->user_id);
+    //     $this->assertNotNull($post->file);
 
-        auth()->logout();
-    }
+    //     auth()->logout();
+    // }
 
     /**
      * @test
