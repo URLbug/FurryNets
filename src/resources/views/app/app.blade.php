@@ -87,7 +87,7 @@
                   </div>
                 <div class="modal-body">
                     <div class="text-center">
-                      <form action="" method="post" enctype="multipart/form-data">
+                      <form action="{{ route('posts') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('POST')
                         

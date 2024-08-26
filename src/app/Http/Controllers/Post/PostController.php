@@ -6,13 +6,14 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Like;
 use App\Models\Post;
+use App\Owners\S3Storage;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 
 class PostController extends Controller
 {
-    function index(int $id, Request $request): View|JsonResponse
+    function index(int $id, Request $request): View|JsonResponse|RedirectResponse
     {
         if($id !== 0)
         {
@@ -33,12 +34,43 @@ class PostController extends Controller
             ]);
         }
 
+        if($request->isMethod('POST'))
+        {
+            return $this->storePost($request);
+        }
+
         $posts = Post::query()
         ->paginate();
 
         return view('posts.posts', [
             'posts' => $posts,
         ]);
+    }
+
+    function storePost(Request $request): RedirectResponse
+    {
+        $data = $request->validate([
+            'name' => 'string|max:255',
+            'file' => 'image|max:1004',
+            'description' => 'string|max:255',
+        ]);
+
+        $post = new Post;
+
+        if(!S3Storage::putFile('/', $data['file']))
+        {
+            abort(500);
+        }
+
+        $post->file = S3Storage::getFile($data['file']->hashName());
+
+        $post->name = $data['name'];
+        $post->description = $data['description'];
+        $post->user_id = auth()->user()->id;
+
+        $post->save();
+
+        return back();
     }
 
     function getPost(int $id): ?Post

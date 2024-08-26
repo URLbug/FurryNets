@@ -2,8 +2,12 @@
 
 namespace Tests\Feature;
 
+use App\Models\Post;
+use App\Models\User;
+use App\Owners\S3Storage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 
 class PostControllerTest extends TestCase
@@ -89,16 +93,60 @@ class PostControllerTest extends TestCase
         $response->assertStatus(404);
     }
 
-    // public function test_unlike_and_like_null_post(): void
-    // {
-    //     $this->login();
+    /**
+     * @test
+     */
+    public function test_store_post_success()
+    {
+        // Arrange
+        $this->login();
+
+        $data = [
+            'name' => 'Test Post',
+            'file' => UploadedFile::fake()->image('test.jpg'),
+            'description' => 'Test description',
+        ];
+
+        // Act
+        $response = $this->post(route('posts'), $data);
+
+        // Assert
+        $response->assertRedirect();
         
-    //     $response = $this->post('/posts/0');
+        $post = Post::query()
+        ->where('name', 'Test Post')
+        ->where('user_id', 1)
+        ->orderByDesc('id')
+        ->first();
+        
+        $this->assertEquals($data['name'], $post->name);
+        $this->assertEquals($data['description'], $post->description);
+        $this->assertEquals(1, $post->user_id);
+        $this->assertNotNull($post->file);
 
-    //     $response->assertStatus(200);
+        auth()->logout();
+    }
 
-    //     $response = $this->post('/posts/0');
+    /**
+     * @test
+     */
+    public function test_store_post_without_file()
+    {
+        // Arrange
+        $this->login();
 
-    //     $response->assertStatus(200);
-    // }
+        $data = [
+            'name' => 'Test Post',
+            'file' => '',
+            'description' => 'Test description',
+        ];
+
+        // Act
+        $response = $this->post(route('posts'), $data);
+
+        // Assert
+        $response->assertSessionHasErrors();
+
+        auth()->logout();
+    }
 }

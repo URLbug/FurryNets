@@ -88,10 +88,13 @@ services:
     tty: true
     environment:
       - initialBuckets=laravel
+      - debug=true
+      - retainFilesOnExit=true
+      - root=containers3root
     ports:
       - "9092:9090"
     volumes:
-      - adls-s3:/data
+      - ./locals3root:/containers3root
 
     networks:
       - adls-laravel
