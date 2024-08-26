@@ -21,6 +21,9 @@ jobs:
       - name: Full build app
         run: make full-build
       
+      - name: Add admin
+        run: sudo chown -R 777 ./src
+      
       - name: Make seed
         run: make php-artisan o="db:seed"
       
