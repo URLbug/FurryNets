@@ -12,6 +12,7 @@ use Tests\TestCase;
 
 class PostControllerTest extends TestCase
 {
+    use RefreshDatabase;
     private function login(): void
     {
         $response = $this->post('/login', [

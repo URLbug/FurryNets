@@ -12,6 +12,8 @@ use Tests\TestCase;
 
 class ProfileControllerTest extends TestCase
 {
+    use RefreshDatabase;
+
     function auth_user(): void
     {
         Auth::attempt([
